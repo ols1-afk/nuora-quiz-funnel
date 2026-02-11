@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuora Quiz Funnel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <div class="quiz-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar"></div>
+        </div>
+
+        <!-- Step 1: Age Range (Shared) -->
+        <div class="quiz-step active" id="step1">
+            <div class="step-label">STEP 1 — SHARED</div>
+            <h1 class="question-title">Which age range fits best?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="step2" data-value="under-25">Under 25</button>
+                <button class="option-btn" data-next="step2" data-value="25-34">25–34</button>
+                <button class="option-btn" data-next="step2" data-value="35-44">35–44</button>
+                <button class="option-btn" data-next="step2" data-value="45-54">45–54</button>
+                <button class="option-btn" data-next="step2" data-value="55+">55+</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Split Point (Shared) -->
+        <div class="quiz-step" id="step2">
+            <div class="step-label dark">STEP 2 — SPLIT POINT</div>
+            <h1 class="question-title">What's been going on lately?</h1>
+            <p class="question-subtitle">Select all that apply</p>
+            <p class="question-note">Multi-select · Continue button · Routing based on weight</p>
+            <div class="options-container multi-select">
+                <button class="option-btn multi" data-path="A" data-value="odor">
+                    Odor that comes and goes
+                    <span class="path-indicator path-a">→ A</span>
+                </button>
+                <button class="option-btn multi" data-path="A" data-value="discharge">
+                    Unusual discharge
+                    <span class="path-indicator path-a">→ A</span>
+                </button>
+                <button class="option-btn multi" data-path="B" data-value="dryness">
+                    Dryness or discomfort during intimacy
+                    <span class="path-indicator path-b">→ B</span>
+                </button>
+                <button class="option-btn multi" data-path="A" data-value="freshness">
+                    Not feeling fresh, even after a shower
+                    <span class="path-indicator path-a">→ A</span>
+                </button>
+                <button class="option-btn multi" data-path="NEUTRAL" data-value="recurring">
+                    Things that keep coming back
+                    <span class="path-indicator neutral">NEUTRAL</span>
+                </button>
+            </div>
+            <button class="continue-btn" id="step2Continue" disabled>Continue</button>
+            <div class="routing-note">
+                <p>Routing: More A selections → Path A. More B → Path B. Tied → Step 7 breaks it.</p>
+            </div>
+        </div>
+
+        <!-- PATH A: Step 3A -->
+        <div class="quiz-step path-a-step" id="step3a">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="step-label">STEP 3A</div>
+            <h1 class="question-title">How long has this been a thing?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="step4a" data-value="few-weeks">A few weeks</button>
+                <button class="option-btn" data-next="step4a" data-value="couple-months">A couple of months</button>
+                <button class="option-btn" data-next="step4a" data-value="six-months">Six months to a year</button>
+                <button class="option-btn" data-next="step4a" data-value="over-year">Over a year</button>
+                <button class="option-btn" data-next="step4a" data-value="on-off-years">On and off for years</button>
+            </div>
+        </div>
+
+        <!-- PATH A: Step 4A - Behaviors -->
+        <div class="quiz-step path-a-step" id="step4a">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="step-label">STEP 4A — BEHAVIORS</div>
+            <h1 class="question-title">Which of these sounds familiar?</h1>
+            <p class="question-subtitle">Select all that apply</p>
+            <p class="question-note">Multi-select · Continue button</p>
+            <div class="options-container multi-select">
+                <button class="option-btn multi" data-value="checking">Checking throughout the day — bathroom trips that are really smell checks</button>
+                <button class="option-btn multi" data-value="showering">Showering before any kind of closeness</button>
+                <button class="option-btn multi" data-value="liners">Wearing liners daily or changing underwear more than once</button>
+                <button class="option-btn multi" data-value="pulling-away">Pulling away when a partner gets close</button>
+                <button class="option-btn multi" data-value="planning">Planning everything around it — what to wear, when to shower</button>
+            </div>
+            <button class="continue-btn" data-next="step4a-stats">Continue</button>
+
+        </div>
+
+        <!-- PATH A: Stats Screen -->
+        <div class="quiz-step path-a-step" id="step4a-stats">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="stats-container">
+                <div class="stat-highlight">
+                    <div class="stat-number">29 million+</div>
+                    <p>American women experience recurring vaginal odor or unusual discharge every year. This is far more common than it feels.</p>
+                    <p class="stat-emphasis">And it is preventable.</p>
+                </div>
+            </div>
+            <button class="continue-btn" data-next="step5a">Continue</button>
+        </div>
+
+        <!-- PATH A: Step 5A - Tried Before -->
+        <div class="quiz-step path-a-step" id="step5a">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="step-label">STEP 5A — TRIED BEFORE</div>
+            <h1 class="question-title">What's already been tried?</h1>
+            <p class="question-subtitle">Select all that apply</p>
+            <p class="question-note">Multi-select · Continue button</p>
+            <div class="options-container multi-select">
+                <button class="option-btn multi" data-value="antibiotics">Antibiotics</button>
+                <button class="option-btn multi" data-value="boric-acid">Boric acid suppositories</button>
+                <button class="option-btn multi" data-value="probiotics">Probiotics</button>
+                <button class="option-btn multi" data-value="washes">Washes, sprays, or pH products</button>
+                <button class="option-btn multi" data-value="home-remedies">Home remedies or diet changes</button>
+                <button class="option-btn multi" data-value="everything">A bit of everything</button>
+            </div>
+            <button class="continue-btn" data-next="step5a-proof">Continue</button>
+        </div>
+
+        <!-- PATH A: Proof Element -->
+        <div class="quiz-step path-a-step" id="step5a-proof">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="proof-element">
+                <div class="proof-label">PROOF ELEMENT</div>
+                <h2>Nuora is 4.5x more effective at eliminating odor than conventional treatments.</h2>
+                <div class="chart-container">
+                    <canvas id="chartPathA1"></canvas>
+                </div>
+                <div class="chart-banner">Nuora is 4.5X more effective</div>
+            </div>
+            <button class="continue-btn" data-next="step6a">Continue</button>
+        </div>
+
+        <!-- PATH A: Step 6A - Frustration -->
+        <div class="quiz-step path-a-step" id="step6a">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="step-label">STEP 6A — FRUSTRATION</div>
+            <h1 class="question-title">And the most frustrating part of all of it?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="step7a" data-value="coming-back">It keeps coming back</button>
+                <button class="option-btn" data-next="step7a" data-value="spending">Spending money on things that don't last</button>
+                <button class="option-btn" data-next="step7a" data-value="confidence">The way it's changed confidence</button>
+                <button class="option-btn" data-next="step7a" data-value="cause">Not knowing what's actually causing it</button>
+                <button class="option-btn" data-next="step7a" data-value="planning-it">Having to plan around it constantly</button>
+            </div>
+        </div>
+
+        <!-- PATH A: Step 7A - Timeline -->
+        <div class="quiz-step path-a-step" id="step7a">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="step-label">STEP 7A — TIMELINE EXPECTATION</div>
+            <h1 class="question-title">How quickly do you want to see results?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="step7a-achievability" data-value="week">Within a week</button>
+                <button class="option-btn" data-next="step7a-achievability" data-value="two-weeks">Within two weeks</button>
+                <button class="option-btn" data-next="step7a-achievability" data-value="month">Within a month</button>
+                <button class="option-btn" data-next="step7a-achievability" data-value="patient">I'm patient, as long as it works</button>
+            </div>
+        </div>
+
+        <!-- PATH A: Achievability Screen -->
+        <div class="quiz-step path-a-step" id="step7a-achievability">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="achievability-screen">
+                <div class="achievability-label">ACHIEVABILITY SCREEN</div>
+                <h2>That timeline is very realistic.</h2>
+                <p class="achievability-text">In an independent study, 92% of our users stopped odor and discharge coming back!</p>
+                <div class="chart-container">
+                    <canvas id="chartPathA2"></canvas>
+                </div>
+            </div>
+            <button class="continue-btn" data-next="step8a">Continue</button>
+        </div>
+
+        <!-- PATH A: Step 8A - Goal -->
+        <div class="quiz-step path-a-step" id="step8a">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="step-label">STEP 8A — GOAL</div>
+            <h1 class="question-title">If one thing could change, what would it be?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="loadingA" data-value="fresh">Feeling fresh without thinking about it</button>
+                <button class="option-btn" data-next="loadingA" data-value="comfortable">Being comfortable during intimacy again</button>
+                <button class="option-btn" data-next="loadingA" data-value="cycle">Breaking the cycle for good</button>
+                <button class="option-btn" data-next="loadingA" data-value="myself">Just feeling like myself again</button>
+            </div>
+        </div>
+
+        <!-- PATH A: Loading Screen -->
+        <div class="quiz-step path-a-step" id="loadingA">
+            <div class="path-header path-a-header">PATH A — ODOR / DISCHARGE / FRESHNESS</div>
+            <div class="loading-screen">
+                <div class="loading-label">LOADING SCREEN</div>
+                <div class="loading-bar">
+                    <div class="loading-fill" id="loadingBarA"></div>
+                </div>
+                <p class="loading-text" id="loadingTextA">Matching responses to research...</p>
+            </div>
+        </div>
+
+        <!-- PATH A: Results Page -->
+        <div class="quiz-step path-a-step" id="resultsA">
+            <div class="path-header path-a-header">RESULTS PAGE — PATH A</div>
+            <h1 class="results-title">Your personalised recommendation is ready.</h1>
+
+            <div class="results-section">
+                <h3 class="section-title">PREDICTED RESULTS</h3>
+                <p>Based on your responses, we predict you'll start to see:</p>
+                <ul class="results-list">
+                    <li><strong>Reduced odor or unusual discharge</strong> within <span class="highlight">5–7 days</span></li>
+                    <li><strong>Consistent freshness</strong> within <span class="highlight">2–3 weeks</span></li>
+                    <li><strong>Long-lasting results</strong> within <span class="highlight">3 weeks+</span></li>
+                </ul>
+                <div class="chart-container">
+                    <canvas id="chartResultsA"></canvas>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h3 class="section-title">YOUR RECOMMENDATION INCLUDES</h3>
+                <ul class="recommendation-list">
+                    <li>✓ Targeted support matched to odor and discharge concerns</li>
+                    <li>✓ Bromelain enzyme + Bacillus coagulans probiotic — the combination that dissolved 93% of biofilm in clinical testing</li>
+                    <li>✓ 60-day money-back guarantee</li>
+                    <li>✓ Free shipping</li>
+                </ul>
+                <div class="avatar-section">
+                    <div class="avatar-stack">
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                    </div>
+                    <p class="avatar-text">47,832 women have found relief</p>
+                </div>
+            </div>
+
+            <a href="https://mynuora.com/products/feminine-balance-gummies-1" class="cta-button">
+                See the full recommendation →
+            </a>
+            <p class="cta-footer">60-day money-back guarantee · Free shipping · Cancel anytime</p>
+        </div>
+
+        <!-- PATH B: Step 3B -->
+        <div class="quiz-step path-b-step" id="step3b">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="step-label">STEP 3B</div>
+            <h1 class="question-title">How long has the dryness or discomfort been going on?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="step4b" data-value="few-weeks">A few weeks</button>
+                <button class="option-btn" data-next="step4b" data-value="couple-months">A couple of months</button>
+                <button class="option-btn" data-next="step4b" data-value="six-months">Six months to a year</button>
+                <button class="option-btn" data-next="step4b" data-value="over-year">Over a year</button>
+                <button class="option-btn" data-next="step4b" data-value="feels-normal">So long it feels normal now</button>
+            </div>
+        </div>
+
+        <!-- PATH B: Step 4B - Behaviors -->
+        <div class="quiz-step path-b-step" id="step4b">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="step-label">STEP 4B — BEHAVIORS</div>
+            <h1 class="question-title">Which of these sounds familiar?</h1>
+            <p class="question-subtitle">Select all that apply</p>
+            <p class="question-note">Multi-select · Continue button</p>
+            <div class="options-container multi-select">
+                <button class="option-btn multi" data-value="painful">Intimacy feels painful — friction, burning, or tearing</button>
+                <button class="option-btn multi" data-value="not-wet">Not getting wet even when aroused</button>
+                <button class="option-btn multi" data-value="avoiding">Avoiding or dreading intimacy</button>
+                <button class="option-btn multi" data-value="lube">Reaching for lube every time and it's still not enough</button>
+                <button class="option-btn multi" data-value="soreness">Soreness or irritation even outside of intimacy</button>
+                <button class="option-btn multi" data-value="excuses">Making excuses to avoid closeness</button>
+            </div>
+            <button class="continue-btn" data-next="step4b-stats">Continue</button>
+        </div>
+
+        <!-- PATH B: Stats Screen -->
+        <div class="quiz-step path-b-step" id="step4b-stats">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="stats-container">
+                <div class="stat-highlight path-b-stat">
+                    <div class="stat-number">17 million+</div>
+                    <p>American women experience vaginal dryness — and not just after menopause. It happens at every age and every stage.</p>
+                    <p class="stat-emphasis">This is far more common than it feels. And it doesn't have to be permanent.</p>
+                </div>
+            </div>
+            <button class="continue-btn" data-next="step5b">Continue</button>
+        </div>
+
+        <!-- PATH B: Step 5B - Tried Before -->
+        <div class="quiz-step path-b-step" id="step5b">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="step-label">STEP 5B — TRIED BEFORE</div>
+            <h1 class="question-title">What's already been tried?</h1>
+            <p class="question-subtitle">Select all that apply</p>
+            <p class="question-note">Multi-select · Continue button</p>
+            <div class="options-container multi-select">
+                <button class="option-btn multi" data-value="water-lube">Water-based lubricants</button>
+                <button class="option-btn multi" data-value="oils">Coconut oil or natural oils</button>
+                <button class="option-btn multi" data-value="estrogen">Estrogen cream or vaginal estrogen</button>
+                <button class="option-btn multi" data-value="hrt">HRT</button>
+                <button class="option-btn multi" data-value="moisturizers">Vaginal moisturizers or suppositories</button>
+                <button class="option-btn multi" data-value="probiotics">Probiotics</button>
+                <button class="option-btn multi" data-value="everything">A bit of everything</button>
+            </div>
+            <button class="continue-btn" data-next="step5b-proof">Continue</button>
+        </div>
+
+        <!-- PATH B: Proof Element -->
+        <div class="quiz-step path-b-step" id="step5b-proof">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="proof-element">
+                <div class="proof-label">PROOF ELEMENT</div>
+                <h2>Nuora is 4.5x more effective at restoring natural moisture than conventional treatments.</h2>
+                <div class="chart-container">
+                    <canvas id="chartPathB1"></canvas>
+                </div>
+                <div class="chart-banner path-b-banner">Nuora is 4.5X more effective</div>
+            </div>
+            <button class="continue-btn" data-next="step6b">Continue</button>
+        </div>
+
+        <!-- PATH B: Step 6B - Frustration -->
+        <div class="quiz-step path-b-step" id="step6b">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="step-label">STEP 6B — FRUSTRATION</div>
+            <h1 class="question-title">And the most frustrating part of all of it?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="step7b" data-value="never-fixes">It never actually fixes the dryness</button>
+                <button class="option-btn" data-next="step7b" data-value="relationships">The impact it's had on relationships</button>
+                <button class="option-btn" data-next="step7b" data-value="stopped-working">Feeling like the body stopped working</button>
+                <button class="option-btn" data-next="step7b" data-value="permanent">Not knowing if this is permanent</button>
+                <button class="option-btn" data-next="step7b" data-value="getting-older">Being told "it's just part of getting older"</button>
+            </div>
+        </div>
+
+        <!-- PATH B: Step 7B - Timeline -->
+        <div class="quiz-step path-b-step" id="step7b">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="step-label">STEP 7B — TIMELINE EXPECTATION</div>
+            <h1 class="question-title">How quickly do you want to see results?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="step7b-achievability" data-value="2-3-weeks">Within 2–3 weeks</button>
+                <button class="option-btn" data-next="step7b-achievability" data-value="month">Within a month</button>
+                <button class="option-btn" data-next="step7b-achievability" data-value="2-3-months">Within 2–3 months</button>
+                <button class="option-btn" data-next="step7b-achievability" data-value="patient">I'm patient, as long as it works</button>
+            </div>
+        </div>
+
+        <!-- PATH B: Achievability Screen -->
+        <div class="quiz-step path-b-step" id="step7b-achievability">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="achievability-screen">
+                <div class="achievability-label">ACHIEVABILITY SCREEN</div>
+                <h2>That timeline is very achievable.</h2>
+                <p class="achievability-text">In an independent study, 92% of our users saw restored natural moisture and improved comfort!</p>
+                <div class="chart-container">
+                    <canvas id="chartPathB2"></canvas>
+                </div>
+            </div>
+            <button class="continue-btn" data-next="step8b">Continue</button>
+        </div>
+
+        <!-- PATH B: Step 8B - Goal -->
+        <div class="quiz-step path-b-step" id="step8b">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="step-label">STEP 8B — GOAL</div>
+            <h1 class="question-title">If one thing could change, what would it be?</h1>
+            <p class="question-subtitle">Single select · Auto-advance</p>
+            <div class="options-container single-select">
+                <button class="option-btn" data-next="loadingB" data-value="wet-again">Getting naturally wet again</button>
+                <button class="option-btn" data-next="loadingB" data-value="no-pain">Intimacy without pain</button>
+                <button class="option-btn" data-next="loadingB" data-value="body-works">Feeling like the body works the way it used to</button>
+                <button class="option-btn" data-next="loadingB" data-value="myself">Just feeling like myself again</button>
+            </div>
+        </div>
+
+        <!-- PATH B: Loading Screen -->
+        <div class="quiz-step path-b-step" id="loadingB">
+            <div class="path-header path-b-header">PATH B — DRYNESS / DISCOMFORT</div>
+            <div class="loading-screen">
+                <div class="loading-label">LOADING SCREEN</div>
+                <div class="loading-bar">
+                    <div class="loading-fill" id="loadingBarB"></div>
+                </div>
+                <p class="loading-text" id="loadingTextB">Matching responses to research...</p>
+            </div>
+        </div>
+
+        <!-- PATH B: Results Page -->
+        <div class="quiz-step path-b-step" id="resultsB">
+            <div class="path-header path-b-header">RESULTS PAGE — PATH B</div>
+            <h1 class="results-title">Your personalised recommendation is ready.</h1>
+
+            <div class="results-section">
+                <h3 class="section-title">PREDICTED RESULTS</h3>
+                <p>Based on your responses, we predict you'll start to see:</p>
+                <ul class="results-list">
+                    <li><strong>Improved comfort</strong> within <span class="highlight path-b-highlight">2–3 weeks</span></li>
+                    <li><strong>Natural moisture returning</strong> by <span class="highlight path-b-highlight">4–6 weeks</span></li>
+                    <li><strong>Long-lasting results</strong> within <span class="highlight path-b-highlight">6–8 weeks</span></li>
+                </ul>
+                <div class="chart-container">
+                    <canvas id="chartResultsB"></canvas>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <h3 class="section-title">YOUR RECOMMENDATION INCLUDES</h3>
+                <ul class="recommendation-list">
+                    <li>✓ Targeted support matched to dryness and discomfort concerns</li>
+                    <li>✓ Bromelain enzyme + Bacillus coagulans probiotic — the combination that restored natural moisture in 92% of users</li>
+                    <li>✓ 60-day money-back guarantee</li>
+                    <li>✓ Free shipping</li>
+                </ul>
+                <div class="avatar-section">
+                    <div class="avatar-stack">
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                        <div class="avatar"></div>
+                    </div>
+                    <p class="avatar-text">47,832 women have found relief</p>
+                </div>
+            </div>
+
+            <a href="https://mynuora.com/products/gummies" class="cta-button path-b-cta">
+                See the full recommendation →
+            </a>
+            <p class="cta-footer">60-day money-back guarantee · Free shipping · Cancel anytime</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
